@@ -1,0 +1,63 @@
+<div class="site-signup">
+	<h1>Signup</h1>
+	<div class="row">
+		<div class="col-sm-3 col-sm-offset-1">
+			<div id="w0" class="auth-clients">
+				<ul class="auth-clients clear">
+					<li class="auth-client">
+						<a class="auth-link github" href="/yiifeed/web/auth?authclient=github">
+						<span class="auth-icon github"></span>
+						<span class="auth-title">GitHub</span>
+						</a>
+					</li>
+				</ul>
+			</div>        
+		</div>
+
+		<div class="col-sm-2">
+			<h2>OR</h2>
+		</div>
+		<div class="col-sm-5">
+			<h2>fill out the following form</h2>
+			{{ if and (eq .Error 0) (isset .Message "error") }}
+				{{ if eq (index .Message "error") 0 }}
+					<div class="alert alert-success" role="alert">{{ index .Message "msg"}}</div>
+				{{ end }}
+
+
+				{{ if eq (index .Message "error") 1 }}
+					<div class="alert alert-danger" role="alert">{{ index .Message "msg"}}</div>
+				{{ end }}
+			{{ end }}
+			<form id="form-signup" action="/site/signup" method="post" role="form">
+				<div class="form-group field-signupform-username required{{ if and (eq .Error 1) (isset .Message "username") }} has-error{{end}}">
+					<label class="control-label" for="signupform-username">Username</label>
+					<input id="signupform-username" class="form-control" name="Username" type="text" value="{{ .Data.Username }}">
+					{{ if and (eq .Error 1) (isset .Message "username") }}
+						<p class="help-block help-block-error">{{ index .Message "username" }}</p>
+					{{ end }}
+				</div>
+
+				<div class="form-group field-signupform-email required{{ if and (eq .Error 1) (isset .Message "email") }} has-error{{end}}">
+					<label class="control-label" for="signupform-email">Email</label>
+					<input id="signupform-email" class="form-control" name="Email" type="text" value="{{ .Data.Email }}">
+					{{ if and (eq .Error 1) (isset .Message "email") }}
+						<p class="help-block help-block-error">{{ index .Message "email" }}</p>
+					{{ end }}
+				</div>
+
+				<div class="form-group field-signupform-password required{{ if and (eq .Error 1) (isset .Message "password") }} has-error{{end}}">
+					<label class="control-label" for="signupform-password">Password</label>
+					<input id="signupform-password" class="form-control" name="PasswordHash" type="password" value="{{ .Data.PasswordHash }}">
+					{{ if and (eq .Error 1) (isset .Message "password") }}
+						<p class="help-block help-block-error">{{ index .Message "password" }}</p>
+					{{ end }}
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Signup</button>                
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

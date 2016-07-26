@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-md-6 col-xs-6 col-md-offset-3" id="content">
+		<h2>fill out the following form</h2>
+		<form id="login-form" action="/site/login" method="post" role="form">
+			<div class="form-group field-loginform-username required{{if eq (index .Message "user_error") 1}} has-error{{end}}">
+				<label class="control-label" for="loginform-username">Username</label>
+				<input id="loginform-username" class="form-control" name="Username" type="text" value="{{ .Data.Username }}">
+				{{ if and (eq .Error 1) (isset .Message "username") }}
+					<p class="help-block help-block-error">{{ index .Message "username"}}</p>
+				{{ end }}
+				<p class="help-block help-block-error"></p>
+			</div>                
+
+			<div class="form-group field-loginform-password required{{if eq (index .Message "pass_error") 1}} has-error{{end}}">
+				<label class="control-label" for="loginform-password">Password</label>
+				<input id="loginform-password" class="form-control" name="Password" type="password" value="{{ .Data.Password }}">
+				{{ if and (eq .Error 1) (isset .Message "password") }}
+					<p class="help-block help-block-error">{{ index .Message "password" }}</p>
+				{{ end }}
+			</div>
+			<p class="hint-block">If you forgot your password you can <a href="/site/request-password-reset">reset it</a>.</p>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Login</button>                
+			</div>
+		</form>        
+	</div>
+</div>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="{{ .BaseUrl }}/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{ .BaseUrl }}/css/style.css" rel="stylesheet" />
+    <title>{{ .Title }} | {{ .AppName }}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Gofeed</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="nav navbar-nav">
+            <li class="active">
+              <form class="navbar-form navbar-left" method="post" action="/news/suggest">
+                <div class="form-group">
+                  <input class="btn btn-primary" type="submit" value="Suggest News" />
+                </div>
+              </form>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <form class="navbar-form navbar-right" method="post">
+                <div class="form-group">
+                  <input class="form-control" placeholder="Search" type="text" />
+                </div>
+              </form>
+            </li>
+            <li>
+              <a href="/news/rss">RSS</a>
+            </li>
+            <li>
+              <a href="/news/atom">Atom</a>
+            </li>
+            <li>
+              <a href="/site/signup">Signup</a>
+            </li>
+            <li>
+              {{ if and (eq (isNil .Data) 0) (isset .Data "user") }}
+                {{ $user := (index .Data "user") }}
+                <a href="/site/logout">Logout ({{ $user.Username }})</a>
+              {{ else }}
+                <a href="/site/login">Login</a>
+              {{ end }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+      {{ yield }}
+      </div>
+
+      <div class="row">
+        <div class="col-xs-2">
+          <p>
+            &copy; Gofeed 2016 |
+            <a href="/site/about">About</a>
+          </p>
+        </div>
+        <div class="col-xs-8"></div>
+        <div class="col-xs-2">
+          <p>
+            <span>Powered by </span>
+            <a href="http://www.golang.org">Go</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="{{ .BaseUrl }}/js/jquery.min.js"></script>
+    <script src="{{ .BaseUrl }}/js/bootstrap.min.js"></script>
+  </body>
+</html>

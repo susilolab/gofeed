@@ -1,0 +1,7 @@
+{
+	"hostname": "localhost",
+	"username": "user",
+	"password": "password",
+	"port": "3306",
+	"db_name": "1607_gofeed"
+}
